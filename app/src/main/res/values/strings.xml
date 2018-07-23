@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">BookInventory</string>
+    <string name="insert_dummy_data">insert dummy data</string>
+    <string name="delete_all">delete all</string>
+    <string name="edit">edit</string>
+    <string name="editor_activity_title_new_book">new book</string>
+    <string name="book_label">Book Details</string>
+    <string name="availability_label">Availability</string>
+    <string name="supplier_label">Supplier</string>
+    <string name="hint_book_name">Book Name</string>
+    <string name="hint_onStock">On Stock</string>
+    <string name="hint_price">Price</string>
+    <string name="hint_quantity">Quantity</string>
+    <string name="hint_supplier_Name">Supplier Name</string>
+    <string name="hint_supplier_Phone">Supplier Phone Number</string>
+    <string name="onStock_unknown">unknown</string>
+    <string name="onStock_true">on stock</string>
+    <string name="onStock_false">not available</string>
+    <string name="action_save">save</string>
+    <string name="action_delete">delete</string>
+    <string name="toast_editorInsertBookFailed">Error with saving book</string>
+    <string name="toast_editorInsertBookSuccessful">Book saved successfully:</string>
+    <string name="exception_matcherQueryFailed">Cannot query unknown URI </string>
+    <string name="exception_nameRequired">Book requires a name</string>
+    <string name="Button_Sale">Sale</string>
+</resources>
