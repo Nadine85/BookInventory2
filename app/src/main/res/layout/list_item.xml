@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@color/colorSecondaryText"  />
+        android:textColor="@color/colorSecondaryText" />
     <TextView
         android:id="@+id/summary"
         android:layout_width="wrap_content"
@@ -28,6 +28,7 @@
         android:textColor="@color/colorAccent"  />
     </LinearLayout>
     <Button
+        android:id="@+id/saleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Button_Sale"

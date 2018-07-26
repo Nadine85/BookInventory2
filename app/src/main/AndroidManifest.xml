@@ -17,7 +17,6 @@
         </activity>
         <activity
             android:name=".EditorActivity"
-            android:label="@string/editor_activity_title_new_book"
             android:theme="@style/EditorTheme"
             android:parentActivityName=".InventoryActivity" >
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -26,7 +25,7 @@
                 android:value=".InventoryActivity" />
         </activity>
         <provider
-            android:authorities="com.example.android.bookinventory"
+            android:authorities="com.example.android.books"
             android:name=".data.bookProvider"
             android:exported="false"/>
     </application>

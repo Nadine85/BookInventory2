@@ -2,8 +2,9 @@
     <string name="app_name">BookInventory</string>
     <string name="insert_dummy_data">insert dummy data</string>
     <string name="delete_all">delete all</string>
-    <string name="edit">edit</string>
-    <string name="editor_activity_title_new_book">new book</string>
+    <string name="edit">add</string>
+    <string name="editor_activity_title_new_book">insert new book</string>
+    <string name= "editor_activity_title_edit_book">edit book</string>
     <string name="book_label">Book Details</string>
     <string name="availability_label">Availability</string>
     <string name="supplier_label">Supplier</string>
@@ -23,4 +24,6 @@
     <string name="exception_matcherQueryFailed">Cannot query unknown URI </string>
     <string name="exception_nameRequired">Book requires a name</string>
     <string name="Button_Sale">Sale</string>
+    <string name="empty_view_title_text">No book in here?</string>
+    <string name="empty_view_subtitle_text">get started and add a book!</string>
 </resources>
