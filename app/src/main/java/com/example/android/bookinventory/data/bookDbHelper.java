@@ -30,7 +30,7 @@ public class bookDbHelper extends SQLiteOpenHelper {
         String SQL_CREATE_BOOKS_TABLE = "CREATE TABLE " + BookEntry.TABLE_NAME + "("
                 + BookEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + BookEntry.COLUMN_BOOK_NAME + " TEXT NOT NULL, "
-                + BookEntry.COLUMN_ON_STOCK + " INTEGER NOT NULL, "
+                + BookEntry.COLUMN_ON_STOCK + " INTEGER, "
                 + BookEntry.COLUMN_PRICE + " DECIMAL NOT NULL, "
                 + BookEntry.COLUMN_QUANTITY + " INTEGER DEFAULT 0, "
                 + BookEntry.COLUMN_SUPPLIER_NAME + " TEXT NOT NULL, "

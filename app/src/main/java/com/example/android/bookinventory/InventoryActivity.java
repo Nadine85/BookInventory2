@@ -1,21 +1,26 @@
 package com.example.android.bookinventory;
 
+import android.Manifest;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import static com.example.android.bookinventory.data.bookContract.BookEntry;
 
@@ -23,6 +28,8 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
 
     private static final int BOOK_LOADER = 0;
     bookCursorAdapter mCursorAdapter;
+    //Content URI for the existing book (null if it's a new book)
+    private Uri mCurrentBookUri;
 
 
     @Override
@@ -32,23 +39,22 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
 
 
         //Button to open EditorActivity
-        Button edit = findViewById(R.id.edit);
-        edit.setOnClickListener(new View.OnClickListener() {
+        Button add = findViewById(R.id.add);
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(InventoryActivity.this, EditorActivity.class);
+                //launch editorActivity to display book
                 startActivity(intent);
+
             }
         });
         //find the listview in order to fill it with the data  of the books table
         ListView listView = findViewById(R.id.listView_book);
         //find the emptyView in order to display it, when there is no data
-       View emptyView = findViewById(R.id.empty_view);
-       listView.setEmptyView(emptyView);
+        View emptyView = findViewById(R.id.empty_view);
+        listView.setEmptyView(emptyView);
 
-       //set up CursorAdpater and attach it to the listivew
-        mCursorAdapter = new bookCursorAdapter(this, null);
-        listView.setAdapter(mCursorAdapter);
 
         //set up ItemClickListener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -57,16 +63,20 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
                 //Create intent to navigate to EditorAvtivity
                 Intent intent = new Intent(InventoryActivity.this, EditorActivity.class);
                 //create uri that indicates the book which was clicked on in the list
-                Uri currentBookUri = ContentUris.withAppendedId(BookEntry.Content_URI, id);
+                Uri mCurrentBookUri = ContentUris.withAppendedId(BookEntry.Content_URI, id);
                 //set uri on the data field
-                intent.setData(currentBookUri);
+                intent.setData(mCurrentBookUri);
                 //launch editorActivity to display book
                 startActivity(intent);
-                                            }
-                                        });
+            }
+        });
+
+        //set up CursorAdpater and attach it to the listivew
+        mCursorAdapter = new bookCursorAdapter(this, null);
+        listView.setAdapter(mCursorAdapter);
 
 
-       //initialize Loader
+        //initialize Loader
         getLoaderManager().initLoader(BOOK_LOADER, null, this);
     }
 
@@ -82,7 +92,15 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
         values.put(BookEntry.COLUMN_SUPPLIER_NAME, "SuperSupplier");
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE, "+43/ 1764342302");
         //Insert new row for SuperBook into the provider by means of the ContentResolver
-        Uri newUri= getContentResolver().insert(BookEntry.Content_URI, values);
+        Uri newUri = getContentResolver().insert(BookEntry.Content_URI, values);
+    }
+
+    /**
+     * Helper method to delete all pets in the database.
+     */
+    private void deleteAllBooks() {
+        int rowsDeleted = getContentResolver().delete(BookEntry.Content_URI, null, null);
+        Log.v("InventoryActivity", rowsDeleted + " rows deleted from book database");
     }
 
 
@@ -100,10 +118,12 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
                 insertBook();
                 return true;
             case R.id.action_delete_all:
+                deleteAllBooks();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -111,11 +131,12 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
         String[] projection = {
                 BookEntry._ID,
                 BookEntry.COLUMN_BOOK_NAME,
-                BookEntry.COLUMN_PRICE};
+                BookEntry.COLUMN_PRICE,
+                BookEntry.COLUMN_QUANTITY};
 
 
         // Perform a query on the books table
-        return new CursorLoader (this,
+        return new CursorLoader(this,
                 BookEntry.Content_URI,   // The content_URI
                 projection,            // The columns to return
                 null,              // selection criteria
@@ -134,5 +155,100 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
         mCursorAdapter.swapCursor(null);
 
 
+    }
+
+//mehod for calling the supplier, applied in the
+public void callSupplier(long id, String supplierPhone){
+        Uri mCurrentBookUri= ContentUris.withAppendedId(BookEntry.Content_URI, id);
+        ContentValues values = new ContentValues();
+        values.put(BookEntry.COLUMN_SUPPLIER_PHONE, supplierPhone);
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + supplierPhone));
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, R.string.call_dialog_msg, Toast.LENGTH_LONG).show();
+                return;
+            }
+            startActivity(intent);
+        }
+
+        //method for increasing the quantity by 1, applied in the editorActivity
+
+    public void increment(long id, int quantity){
+        if(quantity>=1){
+            quantity++;
+            // Construct new uri and content values
+            Uri updateUri = ContentUris.withAppendedId(BookEntry.Content_URI, id);
+            ContentValues values = new ContentValues();
+            values.put(BookEntry.COLUMN_QUANTITY, quantity);
+            int rowsUpdated = getContentResolver().update(
+                    updateUri,
+                    values,
+                    null,
+                    null);
+            if (rowsUpdated == 1) {
+                Toast.makeText(this, R.string.increment_successful, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, R.string.increment_failed, Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            //  Out of stock
+            Toast.makeText(this, R.string.sale_outOfStock, Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    //method for decreasing the quantity by 1, applied in the editorActivity
+
+    public void decrement(long id, int quantity){
+        if(quantity>=1){
+            quantity--;
+            // Construct new uri and content values
+            Uri updateUri = ContentUris.withAppendedId(BookEntry.Content_URI, id);
+            ContentValues values = new ContentValues();
+            values.put(BookEntry.COLUMN_QUANTITY, quantity);
+            int rowsUpdated = getContentResolver().update(
+                    updateUri,
+                    values,
+                    null,
+                    null);
+            if (rowsUpdated == 1) {
+                Toast.makeText(this, R.string.decrement_successful, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, R.string.decrement_failed, Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            //  Out of stock
+            Toast.makeText(this, R.string.sale_outOfStock, Toast.LENGTH_LONG).show();
+        }
+
+        }
+
+
+    //method for decreasing the quantity by 1, applied in the bookCursorAdapter
+    public void saleProduct (long id, int quantity) {
+
+        // Decrement item quantity
+        if (quantity >= 1) {
+            quantity--;
+            // Construct new uri and content values
+            Uri updateUri = ContentUris.withAppendedId(BookEntry.Content_URI, id);
+            ContentValues values = new ContentValues();
+            values.put(BookEntry.COLUMN_QUANTITY, quantity);
+            int rowsUpdated = getContentResolver().update(
+                    updateUri,
+                    values,
+                    null,
+                    null);
+            if (rowsUpdated == 1) {
+                Toast.makeText(this, R.string.sale_successful, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, R.string.sale_failed, Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            //  Out of stock
+            Toast.makeText(this, R.string.sale_outOfStock, Toast.LENGTH_LONG).show();
+        }
     }
 }

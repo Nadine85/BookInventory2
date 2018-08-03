@@ -8,6 +8,7 @@
 
     <ListView
         android:id="@+id/listView_book"
+        android:focusable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -56,13 +57,13 @@
 
 
     <Button
-        android:id="@+id/edit"
+        android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:background="@color/colorAccent"
-        android:text="@string/edit"
+        android:text="@string/add"
         android:textColor="@color/colorTextonIcon" />
 
 </RelativeLayout>

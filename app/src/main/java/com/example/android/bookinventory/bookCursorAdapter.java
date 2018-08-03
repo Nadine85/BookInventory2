@@ -14,36 +14,65 @@ import com.example.android.bookinventory.data.bookContract;
 
 public class bookCursorAdapter extends CursorAdapter{
 
+
     //constructs a new Adapter
     public bookCursorAdapter(Context context, Cursor c){
         super(context, c, 0);
     }
-    public View newView(Context context, Cursor cursor, ViewGroup parent){
-        // Inflate a list item view using the list_item.xml
-        return LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
+
+
+   public View newView(Context context, Cursor cursor, ViewGroup parent){
+        //Inflate a list item view using the list_item.xml
+       return LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
     }
 
+
         //method, which binds the book data to the given list item layout.
-    public void bindView(View view, Context context, Cursor cursor){
+    public void bindView(final View view, final Context context, Cursor cursor){
         //find the TextViews which will be modified in the list_item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
-        TextView summaryTextView = (TextView) view.findViewById(R.id.summary);
-        Button saleButton = (Button) view.findViewById(R.id.saleButton);
+        TextView priceTextView = (TextView) view.findViewById(R.id.priceSummary);
+        TextView quantityTextView = (TextView) view.findViewById(R.id.quantitySummary);
+
 
         //find the Columns which should be displayed
         int nameColumnIndex = cursor.getColumnIndex(bookContract.BookEntry.COLUMN_BOOK_NAME);
         int priceColumnIndex = cursor.getColumnIndex(bookContract.BookEntry.COLUMN_PRICE);
+        int quantityColumnIndex = cursor.getColumnIndex(bookContract.BookEntry.COLUMN_QUANTITY);
+
+
 
         //read the Input from the Columns
+        final long id =cursor.getInt(cursor.getColumnIndexOrThrow(bookContract.BookEntry._ID));
         String name = cursor.getString(nameColumnIndex);
-        float price = cursor.getFloat(priceColumnIndex);
-        String mprice =Float.toString(price);
+        final int quantitySummary = cursor.getInt(quantityColumnIndex);
+        final String mquantitySummary = Integer.toString(quantitySummary);
+        final float price = cursor.getFloat(priceColumnIndex);
+        final String mprice =Float.toString(price);
+
+        //method, which handles on click event on the SaleButton (list_item) and adds 1 (defined in the inventory Activity)
+
+        final Button saleButton = (Button) view.findViewById(R.id.saleButton);
+        saleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InventoryActivity mainActivity = (InventoryActivity) context;
+               mainActivity.saleProduct(id, quantitySummary);
+
+            }
+        });
 
         //update TextViews
         nameTextView.setText(name);
-        summaryTextView.setText(mprice);
+        priceTextView.setText(mprice);
+        quantityTextView.setText(mquantitySummary);
         }
 }
+
+
+
+
+
 
 
 

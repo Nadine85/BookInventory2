@@ -41,13 +41,33 @@
                 android:id="@+id/edit_price"
                 style="@style/EditText"
                 android:hint="@string/hint_price"
-                android:inputType="textCapWords" />
+                android:inputType="numberDecimal" />
             <!-- Quantity field -->
-            <EditText
-                android:id="@+id/edit_quantity"
-                style="@style/EditText"
-                android:hint="@string/hint_quantity"
-                android:inputType="textCapWords" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <!-- Quantity field -->
+                <Button
+                    android:id="@+id/decrement_button"
+                    android:layout_width="@dimen/editor_buttonSize"
+                    android:layout_height="@dimen/editor_buttonSize"
+                    android:text="@string/editor_button_decrement"/>
+                <EditText
+                    android:id="@+id/edit_quantity"
+                    style="@style/EditText"
+                    android:hint="@string/hint_quantity"
+                    android:layout_marginStart="@dimen/listItem_marginStartWithinItem"
+                    android:inputType="number" />
+                <!-- Quantity button-->
+                <Button
+                    android:id="@+id/increment_button"
+                    android:layout_width="@dimen/editor_buttonSize"
+                    android:layout_height="@dimen/editor_buttonSize"
+                    android:layout_marginStart="@dimen/listItem_marginStartWithinItem"
+                    android:text="@string/editor_button_increment"/>
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 
@@ -63,6 +83,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/availability_label" />
+        <!--Todo: The Product Detail Layout also contains buttons
+        <!-that increase and decrease the available quantity displayed.
+<!-todo: a check in the code to ensure that no negative quantities display (zero is the lowest amount).-->
 
         <!-- Input Field -->
         <LinearLayout
@@ -92,7 +115,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/supplier_label" />
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -105,13 +127,25 @@
                 android:id="@+id/edit_supplierName"
                 style="@style/EditText"
                 android:hint="@string/hint_supplier_Name"
-                android:inputType="textCapWords" />
+                android:inputType="textPersonName" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
             <!--Supplier Phone field -->
             <EditText
                 android:id="@+id/edit_supplierPhone"
                 style="@style/EditText"
                 android:hint="@string/hint_supplier_Phone"
-                android:inputType="textCapWords" />
+                android:inputType="phone" />
+                <!-- Contact button-->
+                <Button
+                    android:id="@+id/call_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/listItem_marginStartWithinItem"
+                    android:text="@string/editor_button_contact"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

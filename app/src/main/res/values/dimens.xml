@@ -2,4 +2,7 @@
 <resources>
     <dimen name="layout_padding">20dp</dimen>
     <dimen name="textUnit_padding">10dp</dimen>
+    <dimen name="listItem_marginStartWithinItem">5dp</dimen>
+    <dimen name="listItem_marginStart_NewItem">15dp</dimen>
+    <dimen name="editor_buttonSize">40dp</dimen>
 </resources>
