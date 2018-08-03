@@ -1,17 +1,14 @@
 package com.example.android.bookinventory;
 
-import android.Manifest;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -156,73 +153,6 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
 
 
     }
-
-//mehod for calling the supplier, applied in the
-public void callSupplier(long id, String supplierPhone){
-        Uri mCurrentBookUri= ContentUris.withAppendedId(BookEntry.Content_URI, id);
-        ContentValues values = new ContentValues();
-        values.put(BookEntry.COLUMN_SUPPLIER_PHONE, supplierPhone);
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + supplierPhone));
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, R.string.call_dialog_msg, Toast.LENGTH_LONG).show();
-                return;
-            }
-            startActivity(intent);
-        }
-
-        //method for increasing the quantity by 1, applied in the editorActivity
-
-    public void increment(long id, int quantity){
-        if(quantity>=1){
-            quantity++;
-            // Construct new uri and content values
-            Uri updateUri = ContentUris.withAppendedId(BookEntry.Content_URI, id);
-            ContentValues values = new ContentValues();
-            values.put(BookEntry.COLUMN_QUANTITY, quantity);
-            int rowsUpdated = getContentResolver().update(
-                    updateUri,
-                    values,
-                    null,
-                    null);
-            if (rowsUpdated == 1) {
-                Toast.makeText(this, R.string.increment_successful, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, R.string.increment_failed, Toast.LENGTH_SHORT).show();
-            }
-
-        } else {
-            //  Out of stock
-            Toast.makeText(this, R.string.sale_outOfStock, Toast.LENGTH_LONG).show();
-        }
-
-    }
-
-    //method for decreasing the quantity by 1, applied in the editorActivity
-
-    public void decrement(long id, int quantity){
-        if(quantity>=1){
-            quantity--;
-            // Construct new uri and content values
-            Uri updateUri = ContentUris.withAppendedId(BookEntry.Content_URI, id);
-            ContentValues values = new ContentValues();
-            values.put(BookEntry.COLUMN_QUANTITY, quantity);
-            int rowsUpdated = getContentResolver().update(
-                    updateUri,
-                    values,
-                    null,
-                    null);
-            if (rowsUpdated == 1) {
-                Toast.makeText(this, R.string.decrement_successful, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, R.string.decrement_failed, Toast.LENGTH_SHORT).show();
-            }
-
-        } else {
-            //  Out of stock
-            Toast.makeText(this, R.string.sale_outOfStock, Toast.LENGTH_LONG).show();
-        }
-
-        }
 
 
     //method for decreasing the quantity by 1, applied in the bookCursorAdapter

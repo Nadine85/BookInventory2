@@ -55,5 +55,6 @@
     <string name="decrement_failed">decreasing the quantity by 1 failed.</string>
     <string name="increment_successful">quantity increased by 1.</string>
     <string name="increment_failed">increasing the quantity by 1 failed.</string>
+    <string name="enterSupplierPhone">please enter a valid phone number.</string>
 
 </resources>
