@@ -8,9 +8,9 @@
 
     <ListView
         android:id="@+id/listView_book"
-        android:focusable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -26,9 +26,11 @@
         <ImageView
             android:id="@+id/empty_book_image"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/empty_view"/>
+            android:contentDescription="@string/drawable_bookmark"
+            android:src="@drawable/empty_view" />
 
         <TextView
             android:id="@+id/empty_title_text"
@@ -39,8 +41,8 @@
             android:fontFamily="sans-serif-medium"
             android:paddingTop="16dp"
             android:text="@string/empty_view_title_text"
-            android:textColor="@color/colorSecondaryText"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/colorSecondaryText" />
 
         <TextView
             android:id="@+id/empty_subtitle_text"
@@ -52,7 +54,7 @@
             android:paddingTop="2dp"
             android:text="@string/empty_view_subtitle_text"
             android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/colorSecondaryText"/>
+            android:textColor="@color/colorSecondaryText" />
     </RelativeLayout>
 
 

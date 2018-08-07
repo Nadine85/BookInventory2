@@ -1,151 +1,157 @@
 <!-- Layout for the editor -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/layout_padding"
-    tools:context=".EditorActivity">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
 
-    <!-- Book Details  -->
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/textUnit_padding"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/layout_padding"
+        tools:context=".EditorActivity">
 
-        <!-- Label name  -->
-
-        <TextView
-            style="@style/Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/book_label" />
-
-        <!-- Input fields -->
+        <!-- Book Details  -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="vertical"
-            android:paddingLeft="4dp">
-            <!-- Name field -->
-            <EditText
-                android:id="@+id/edit_book_name"
-                style="@style/EditText"
-                android:hint="@string/hint_book_name"
-                android:inputType="textCapWords" />
-
-            <!-- Price field -->
-            <EditText
-                android:id="@+id/edit_price"
-                style="@style/EditText"
-                android:hint="@string/hint_price"
-                android:inputType="numberDecimal" />
-            <!-- Quantity field -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <!-- Quantity field -->
-                <Button
-                    android:id="@+id/decrement_button"
-                    android:layout_width="@dimen/editor_buttonSize"
-                    android:layout_height="@dimen/editor_buttonSize"
-                    android:text="@string/editor_button_decrement"/>
-                <EditText
-                    android:id="@+id/edit_quantity"
-                    style="@style/EditText"
-                    android:hint="@string/hint_quantity"
-                    android:layout_marginStart="@dimen/listItem_marginStartWithinItem"
-                    android:inputType="number" />
-                <!-- Quantity button-->
-                <Button
-                    android:id="@+id/increment_button"
-                    android:layout_width="@dimen/editor_buttonSize"
-                    android:layout_height="@dimen/editor_buttonSize"
-                    android:layout_marginStart="@dimen/listItem_marginStartWithinItem"
-                    android:text="@string/editor_button_increment"/>
-            </LinearLayout>
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/textUnit_padding">
-
-        <!-- Availability Label -->
-        <TextView
-            style="@style/Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/availability_label" />
-        <!--Todo: The Product Detail Layout also contains buttons
-        <!-that increase and decrease the available quantity displayed.
-<!-todo: a check in the code to ensure that no negative quantities display (zero is the lowest amount).-->
-
-        <!-- Input Field -->
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:orientation="vertical">
-            <!-- On Stock field -->
-            <Spinner
-                android:id="@+id/spinner_onStock"
-                android:layout_height="48dp"
-                android:layout_width="wrap_content"
-                android:paddingStart="@dimen/layout_padding"
-                android:spinnerMode="dropdown"
-                android:textColor="@color/colorSecondaryText"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/textUnit_padding">
-        <!-- Supplier Label -->
-        <TextView
-            style="@style/Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/supplier_label" />
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="vertical"
-            android:paddingLeft="4dp"
+            android:orientation="horizontal"
             android:padding="@dimen/textUnit_padding">
-            <!--Supplier Name field -->
-            <EditText
-                android:id="@+id/edit_supplierName"
-                style="@style/EditText"
-                android:hint="@string/hint_supplier_Name"
-                android:inputType="textPersonName" />
-            <LinearLayout
+
+            <!-- Label name  -->
+
+            <TextView
+                style="@style/Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <!--Supplier Phone field -->
-            <EditText
-                android:id="@+id/edit_supplierPhone"
-                style="@style/EditText"
-                android:hint="@string/hint_supplier_Phone"
-                android:inputType="phone" />
-                <!-- Contact button-->
-                <Button
-                    android:id="@+id/call_button"
+                android:text="@string/book_label" />
+
+            <!-- Input fields -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:paddingLeft="4dp">
+                <!-- Name field -->
+                <EditText
+                    android:id="@+id/edit_book_name"
+                    style="@style/EditText"
+                    android:hint="@string/hint_book_name"
+                    android:inputType="textCapWords" />
+
+                <!-- Price field -->
+                <EditText
+                    android:id="@+id/edit_price"
+                    style="@style/EditText"
+                    android:hint="@string/hint_price"
+                    android:inputType="numberDecimal" />
+                <!-- Quantity field -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/listItem_marginStartWithinItem"
-                    android:text="@string/editor_button_contact"/>
+                    android:orientation="horizontal">
+                    <!-- Quantity field -->
+                    <Button
+                        android:id="@+id/decrement_button"
+                        android:layout_width="@dimen/editor_buttonSize"
+                        android:layout_height="@dimen/editor_buttonSize"
+                        android:text="@string/editor_button_decrement" />
+
+                    <EditText
+                        android:id="@+id/edit_quantity"
+                        style="@style/EditText"
+                        android:layout_marginStart="@dimen/listItem_marginStartWithinItem"
+                        android:hint="@string/hint_quantity"
+                        android:inputType="number" />
+                    <!-- Quantity button-->
+                    <Button
+                        android:id="@+id/increment_button"
+                        android:layout_width="@dimen/editor_buttonSize"
+                        android:layout_height="@dimen/editor_buttonSize"
+                        android:layout_marginStart="@dimen/listItem_marginStartWithinItem"
+                        android:text="@string/editor_button_increment" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/textUnit_padding">
+
+            <!-- Availability Label -->
+            <TextView
+                style="@style/Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/availability_label" />
+
+            <!-- Input Field -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical">
+                <!-- On Stock field -->
+                <Spinner
+                    android:id="@+id/spinner_onStock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:paddingStart="@dimen/layout_padding"
+                    android:spinnerMode="dropdown"
+                    android:textColor="@color/colorSecondaryText" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/textUnit_padding">
+            <!-- Supplier Label -->
+            <TextView
+                style="@style/Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/supplier_label" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:padding="@dimen/textUnit_padding"
+                android:paddingLeft="4dp">
+                <!--Supplier Name field -->
+                <EditText
+                    android:id="@+id/edit_supplierName"
+                    style="@style/EditText"
+                    android:hint="@string/hint_supplier_Name"
+                    android:inputType="textPersonName" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <!--Supplier Phone field -->
+                    <EditText
+                        android:id="@+id/edit_supplierPhone"
+                        style="@style/EditText"
+                        android:hint="@string/hint_supplier_Phone"
+                        android:inputType="phone" />
+                    <!-- Contact button-->
+                    <Button
+                        android:id="@+id/call_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/listItem_marginStartWithinItem"
+                        android:text="@string/editor_button_contact" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

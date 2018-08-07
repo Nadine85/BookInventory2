@@ -29,13 +29,13 @@ public class bookProvider extends ContentProvider {
     private static final int BOOK_ID = 101;
 
     //Uri matcher for Uri object; input "no match" is passed into the constructor = code to return for the root Uri
-   private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+    private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
         //matcher that identifies the whole book table by means of the tables URI Path
-        sUriMatcher.addURI(CONTENT_AUTHORITY, PATH_BOOKS,BOOKS);
+        sUriMatcher.addURI(CONTENT_AUTHORITY, PATH_BOOKS, BOOKS);
         //matcher that identifies a single book by means of the book URI Path
-        sUriMatcher.addURI(CONTENT_AUTHORITY,PATH_BOOKS + "/#", BOOK_ID);
+        sUriMatcher.addURI(CONTENT_AUTHORITY, PATH_BOOKS + "/#", BOOK_ID);
     }
 
     //Initialize ContentProvider with Helper Object
@@ -66,7 +66,7 @@ public class bookProvider extends ContentProvider {
                 break;
             case BOOK_ID:
                 // For the BOOK_ID code, extract out the ID from the URI.
-                               selection = BookEntry._ID + "=?";
+                selection = BookEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
 
                 // Query the books table with the given _ID and return a cursor containing that row of the table.
@@ -86,12 +86,14 @@ public class bookProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
         final int match = sUriMatcher.match(uri);
-        switch (match){
+        switch (match) {
             case BOOKS:
-                return insertBook(uri,contentValues);
-               default:throw new IllegalArgumentException("Insert is not supported for "+ uri);
+                return insertBook(uri, contentValues);
+            default:
+                throw new IllegalArgumentException("Insert is not supported for " + uri);
         }
     }
+
     //define method insertBook, in order to get the user input and insert it in the database
     private Uri insertBook(Uri uri, ContentValues values) {
         // Check that the name is not null
@@ -117,15 +119,15 @@ public class bookProvider extends ContentProvider {
             throw new IllegalArgumentException("Book requires valid quantity");
         }
 
-       //Check that the Supplier name is provided
+        //Check that the Supplier name is provided
         String supplierName = values.getAsString(BookEntry.COLUMN_SUPPLIER_NAME);
-        if(supplierName == null) {
+        if (supplierName == null) {
             throw new IllegalArgumentException("Book requires a supplier name");
         }
 
         //Check that the Supplier phone is provided
         String supplerPhone = values.getAsString(BookEntry.COLUMN_SUPPLIER_PHONE);
-        if(supplerPhone == null){
+        if (supplerPhone == null) {
             throw new IllegalArgumentException("Book requires a supplier phone number");
         }
 
@@ -170,32 +172,32 @@ public class bookProvider extends ContentProvider {
      * specified in the selection and selection arguments
      * Return the number of rows that were successfully updated.
      */
-    private int updateBook (Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-            // If the COLUMN_BOOK_NAME key is present, check that the name value is not null.
-            if (values.containsKey(BookEntry.COLUMN_BOOK_NAME)) {
-                String name = values.getAsString(BookEntry.COLUMN_BOOK_NAME);
-                if (name == null) {
-                    throw new IllegalArgumentException("Book requires a name");
-                }
+    private int updateBook(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        // If the COLUMN_BOOK_NAME key is present, check that the name value is not null.
+        if (values.containsKey(BookEntry.COLUMN_BOOK_NAME)) {
+            String name = values.getAsString(BookEntry.COLUMN_BOOK_NAME);
+            if (name == null) {
+                throw new IllegalArgumentException("Book requires a name");
             }
+        }
 
-            // If the onStock key is present,check that the onStock value is valid.
-            if (values.containsKey(BookEntry.COLUMN_ON_STOCK)) {
-                Integer onStock = values.getAsInteger(BookEntry.COLUMN_ON_STOCK);
-                if (onStock == null || !BookEntry.isValidOnStock(onStock)) {
-                    throw new IllegalArgumentException("Book requires valid availability");
-                }
+        // If the onStock key is present,check that the onStock value is valid.
+        if (values.containsKey(BookEntry.COLUMN_ON_STOCK)) {
+            Integer onStock = values.getAsInteger(BookEntry.COLUMN_ON_STOCK);
+            if (onStock == null || !BookEntry.isValidOnStock(onStock)) {
+                throw new IllegalArgumentException("Book requires valid availability");
             }
+        }
 
-            // If the COLUMN_Price key is present,check that the value is valid.
-            if (values.containsKey(BookEntry.COLUMN_PRICE)) {
-                // Check that the price is greater than or equal to 0
-                Float price = values.getAsFloat(BookEntry.COLUMN_PRICE);
-                if (price <= 0) {
-                    throw new IllegalArgumentException("Book requires valid price");
-                }
+        // If the COLUMN_Price key is present,check that the value is valid.
+        if (values.containsKey(BookEntry.COLUMN_PRICE)) {
+            // Check that the price is greater than or equal to 0
+            Float price = values.getAsFloat(BookEntry.COLUMN_PRICE);
+            if (price <= 0) {
+                throw new IllegalArgumentException("Book requires valid price");
             }
-            // If the COLUMN_Quantity key is present,check that the value is valid.
+        }
+        // If the COLUMN_Quantity key is present,check that the value is valid.
         if (values.containsKey(BookEntry.COLUMN_QUANTITY)) {
             // Check that the quantity is greater than or equal 0
             Integer quantity = values.getAsInteger(BookEntry.COLUMN_QUANTITY);
@@ -219,21 +221,22 @@ public class bookProvider extends ContentProvider {
             }
         }
 
-            // If there are no values to update, don't update the database
-            if (values.size() == 0) {
-                return 0;
-            }
-
-            // Otherwise, get writeable database to update the data
-            SQLiteDatabase database = mDbHelper.getWritableDatabase();
-        //update the database and get the number of rows affected
-         int rowsUpdated = database.update(BookEntry.TABLE_NAME, values, selection, selectionArgs);
-         // If 1 or more rows were updated, then notify all listeners that the data at the URI has changed
-        if (rowsUpdated != 0) {
-            getContext().getContentResolver().notifyChange(uri, null); }
-            // Return the number of updated rows
-        return rowsUpdated;
+        // If there are no values to update, don't update the database
+        if (values.size() == 0) {
+            return 0;
         }
+
+        // Otherwise, get writeable database to update the data
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+        //update the database and get the number of rows affected
+        int rowsUpdated = database.update(BookEntry.TABLE_NAME, values, selection, selectionArgs);
+        // If 1 or more rows were updated, then notify all listeners that the data at the URI has changed
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        // Return the number of updated rows
+        return rowsUpdated;
+    }
 
     /**
      * Delete the data at the given selection and selection arguments.
@@ -254,16 +257,17 @@ public class bookProvider extends ContentProvider {
             case BOOK_ID:
                 // Delete a single row given by the ID in the URI
                 selection = BookEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 rowsDeleted = database.delete(BookEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Deletion is not supported for " + uri);
         }
         // If 1 or more rows were deleted,notify all listeners that the data at the URI has changed
-                 if (rowsDeleted != 0) {
-            getContext().getContentResolver().notifyChange(uri, null); }
-            // Return the number of rows deleted
+        if (rowsDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        // Return the number of rows deleted
         return rowsDeleted;
     }
 

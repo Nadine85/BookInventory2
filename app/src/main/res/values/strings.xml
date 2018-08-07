@@ -4,13 +4,13 @@
     <string name="delete_all">delete all</string>
     <string name="add">add book</string>
     <string name="editor_activity_title_new_book">insert new book</string>
-    <string name= "editor_activity_title_edit_book">edit book</string>
+    <string name="editor_activity_title_edit_book">edit book</string>
     <string name="book_label">Book Details</string>
     <string name="availability_label">Availability</string>
     <string name="supplier_label">Supplier</string>
     <string name="hint_book_name">Book Name</string>
     <string name="hint_onStock">On Stock</string>
-    <string name="hint_price">Price</string>
+    <string name="hint_price">Price(€)</string>
     <string name="hint_quantity">Quantity</string>
     <string name="hint_supplier_Name">Name</string>
     <string name="hint_supplier_Phone">Phone Number</string>
@@ -31,30 +31,56 @@
     <string name="unsaved_dialog_msg">Discard your changes and quit editing?</string>
     <string name="discard">Discard</string>
     <string name="keep_editing">Keep Editing</string>
-    <!-- Toast message in editor when current pet was successfully deleted [CHAR LIMIT=NONE] -->
     <string name="editor_delete_book_successful">book deleted</string>
-    <!-- Toast message in editor when current pet has failed to be deleted [CHAR LIMIT=NONE] -->
     <string name="editor_delete_book_failed">Error with deleting book</string>
-    <!-- Dialog message to ask the user to confirm deleting the current pet [CHAR LIMIT=NONE] -->
     <string name="delete_dialog_msg">Delete this book?</string>
-    <!-- Dialog button text for the option to confirm deleting the current pet [CHAR LIMIT=20] -->
     <string name="delete">Delete</string>
-    <!-- Dialog button text for the option to cancel deletion of the current pet [CHAR LIMIT=20] -->
     <string name="cancel">Cancel</string>
     <string name="unknown_price">Unknown price</string>
     <string name="list_item_quantity">quantity:</string>
-    <string name="list_item_price">price:</string>
+    <string name="list_item_price">price(€):</string>
     <string name="sale_successful">you sold 1 book</string>
     <string name="sale_failed">sale failed</string>
     <string name="sale_outOfStock">book is out of stock</string>
     <string name="editor_button_decrement">-</string>
     <string name="editor_button_increment">+</string>
     <string name="editor_button_contact">call</string>
-    <string name="call_dialog_msg">BookInventory has no access to the phone. /n Activate access to your phone in the settings.</string>
+    <string name="call_dialog_msg">BookInventory has no access to the phone. Activate access to your phone in the settings.</string>
     <string name="decrement_successful">quantity decreased by 1.</string>
     <string name="decrement_failed">decreasing the quantity by 1 failed.</string>
     <string name="increment_successful">quantity increased by 1.</string>
     <string name="increment_failed">increasing the quantity by 1 failed.</string>
     <string name="enterSupplierPhone">please enter a valid phone number.</string>
+    <string name="invalid_quantity_number">error: please enter a valid number for quantity</string>
+    <string name="invalid_price_number">error: please enter a valid number for price</string>
+    <string name="drawable_bookmark">bookmarks</string>
+    <string name="add_empty_fields_hint">unable to save book: please fill out every empty field before saving the book</string>
+    <string name="update_empty_name_hint">unable to update book: please enter the name of the book.</string>
+    <string name="update_empty_price_hint">unable to update book: please enter the price of the book</string>
+    <string name="update_empty_supplier_hint">unable to update book: please enter the name of the supplier.</string>
+    <string name="update_empty_supplier_phone_hint">unable to update book: please enter the phone number of the supplier.</string>
+    <string name="update_empty_name_price_suppliername_phone_hint">unable to update book: please enter a valid book name, price, supplier name, supplier phone</string>
+    <string name="update_empty_name_supplierphone_hint">unable to update book: please enter a valid book name, supplier phone</string>
+    <string name="update_empty_name_suppliername_hint">unable to update book: please enter a valid book name, supplier name</string>
+    <string name="update_empty_name_price_hint">unable to update book: please enter a valid book name, price</string>
+    <string name="update_empty_price_supplierphone_hint">unable to update book: please enter a valid book price, supplier phone</string>
+    <string name="update_empty_price_suppliername_hint">unable to update book: please enter a valid book price, supplier name</string>
+    <string name="update_empty_suppliername_phone_hint">unable to update book: please enter a valid supplier name, supplier phone</string>
+    <string name="update_empty_name_suppliername_phone_hint">unable to update book: please enter a valid book name, supplier name, supplier phone</string>
+    <string name="update_empty_price_suppliername_phone_hint">unable to update book: please enter a valid book price, supplier name, supplier phone</string>
+    <string name="update_empty_price_name_phone_hint">unable to update book: please enter a valid book name, price,  supplier phone</string>
+    <string name="update_empty_price_name_suppliername_hint">unable to update book: please enter a valid book name, price, supplier name,</string>
+
+
+
+
+
+
+
+
+
+
+
+
 
 </resources>

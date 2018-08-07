@@ -92,9 +92,8 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
         Uri newUri = getContentResolver().insert(BookEntry.Content_URI, values);
     }
 
-    /**
-     * Helper method to delete all pets in the database.
-     */
+    //Helper method to delete all books in the database.
+
     private void deleteAllBooks() {
         int rowsDeleted = getContentResolver().delete(BookEntry.Content_URI, null, null);
         Log.v("InventoryActivity", rowsDeleted + " rows deleted from book database");
@@ -156,7 +155,7 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
 
 
     //method for decreasing the quantity by 1, applied in the bookCursorAdapter
-    public void saleProduct (long id, int quantity) {
+    public void saleProduct(long id, int quantity) {
 
         // Decrement item quantity
         if (quantity >= 1) {
